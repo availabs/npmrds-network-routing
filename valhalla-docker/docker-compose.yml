@@ -1,0 +1,10 @@
+version: '3'
+services:
+    router:
+      image: valhalla/docker
+      container_name: vrouter
+      network_mode: "host"
+      volumes:
+        - ./valhalla_data:/data
+      environment:
+        - VALHALLA_DOCKER_DATAPATH=/data/valhalla_tiles
