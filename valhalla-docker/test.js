@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 
 const request = require('request-promise-native');
-const { uniqWith, isEqual } = require('lodash');
+
+// const HOST = '127.0.0.1:8002'
+const HOST = 'ares.availabs.org:8003'
 
 const options = {
   method: 'POST',
-  uri: 'http://127.0.0.1:8002/route',
+  uri: `http://${HOST}/route`,
   body: {
     locations: [
       { lat: 42.676182, lon: -73.82227, type: 'break' },
@@ -27,9 +29,9 @@ const options = {
 
   const matchOpts = {
     method: 'POST',
-    uri: 'http://127.0.0.1:8002/trace_attributes',
+    uri: `http://${HOST}/trace_attributes`,
     body: {
-      filters: { attributes: ['edge.way_id'], action: 'include' },
+      // filters: { attributes: ['edge.way_id'], action: 'include' },
       encoded_polyline: shape,
       shape_match: 'map_snap',
       costing: 'auto',
@@ -42,7 +44,7 @@ const options = {
   };
 
   const matched = await request(matchOpts);
-  const wayIds = uniqWith(matched.edges.map(({ way_id }) => way_id), isEqual);
-  // console.log(JSON.stringify(legsGeoJSON, null, 4));
-  console.log(JSON.stringify(wayIds));
+  // console.log(JSON.stringify(matched, null, 4));
+  // const wayIds = uniqWith(matched.edges.map(({ way_id }) => way_id), isEqual);
+  console.log(JSON.stringify(matched));
 })();
