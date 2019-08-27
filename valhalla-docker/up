@@ -5,8 +5,6 @@ set -a
 
 pushd "$( dirname "${BASH_SOURCE[0]}")" >/dev/null
 
-. .env
-
 VALHALLA_DOCKER_DATAPATH=/data/valhalla_tiles docker-compose up router
 
 popd >/dev/null
